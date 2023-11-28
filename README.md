@@ -1,1 +1,1 @@
-# dotnet-todoList
+# Todo list project for Software Architecture
