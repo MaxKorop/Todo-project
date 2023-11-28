@@ -1,0 +1,12 @@
+﻿@model ViewTaskResponse
+<div class="card" style="width: 20rem;">
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <h6 class="card-subtitle mb-2 text-muted">Priority : @Model.PriorityName | Status : @Model.StatusName</h6>
+        <p class="card-text">@Model.Description</p>
+        <p class="card-text">Due date : @Model.DueDate.ToString()</p>
+
+        <a asp-action="Edit" asp-controller="Tasks" asp-route-taskId="@Model.Id" class="card-link btn btn-primary">Edit</a>
+        <partial name="Components/_DeleteViewTaskResponseButton" model="@Model"/>
+    </div>
+</div>

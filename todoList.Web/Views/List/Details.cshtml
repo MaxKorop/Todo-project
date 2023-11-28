@@ -1,0 +1,40 @@
+﻿@model TList
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@Html.DisplayFor(model => model.Name)</h1>
+
+<div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CreatedBy.UserName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CreatedBy.UserName)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Create" asp-controller="Tasks" asp-route-listId="@Model.Id" class="btn btn-primary">Add Task</a>
+    @{
+        if (ViewBag.Tasks.Count != 0)
+        {
+            foreach (ViewTaskResponse item in ViewBag.Tasks)
+            {
+                <partial name="Components/_TaskCard" model="@item"/>
+            }
+        }
+        else
+        {
+            <p>There isn't any task yet.</p>
+        }
+    }
+</div>

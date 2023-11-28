@@ -1,0 +1,27 @@
+﻿@model User
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Welcome, @Model.UserName</h1>
+<h5>@Model.Name @Model.LastName</h5>
+<h6>@Model.Email</h6>
+<h6>@Model.About</h6>
+
+<h5>Your Tasks</h5>
+<div class="row">
+@foreach (ViewTaskResponse task in ViewBag.Tasks)
+{
+    <div class="col-3">
+        <partial name="Components/_TaskCard" model="@task"/>
+    </div>
+}
+</div>
+<h5>Your Lists</h5>
+<a class="btn btn-primary" asp-action="Create" asp-controller="List">Create New</a>
+@foreach (var list in ViewBag.Lists)
+{
+    <div class="h-25 p-5 bg-light border rounded-3">
+    <a asp-action="Index" asp-controller="List" asp-route-listId="@list.Id">@list.Name</a>
+    </div>
+}

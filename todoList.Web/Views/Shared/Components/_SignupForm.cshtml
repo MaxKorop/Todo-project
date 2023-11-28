@@ -1,0 +1,18 @@
+﻿@model UserSignUpModel
+
+<form asp-action="SignUp" asp-controller="User">
+    <div class="form-floating mb-3">
+        <input asp-for="UserName" type="username" class="form-control rounded-3" id="floatingInput" placeholder="Username">
+        <label asp-for="UserName" for="floatingInput" style="color: black" required>User name</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="Email" type="email" class="form-control rounded-3" id="floatingInput" placeholder="name@example.com">
+        <label asp-for="Email" for="floatingInput" style="color: black" required>Email address</label>
+    </div>
+    <div class="form-floating mb-3">
+        <input asp-for="Password" type="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
+        <label asp-for="Password" for="floatingPassword" style="color: black" required>Password</label>
+    </div>
+    <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit" value="SignUp">Sign up</button>
+    <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
+</form>

@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<div>
+    @{
+        foreach (TList item in ViewBag.Lists)
+        {
+            <div class="card" style="width: 20rem;">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Name</h5>
+                    <p class="card-text">@item.Description</p>
+
+                    <a asp-action="Details" asp-controller="List" asp-route-listId="@item.Id" class="card-link btn btn-primary">Show List</a>
+                    <a asp-action="Create" asp-controller="Tasks" asp-route-listId="@item.Id" class="btn btn-primary">Add Task</a>
+                    <form asp-action="Delete" asp-controller="List" asp-route-listId="@item.Id">
+                        <input type="submit" value="Delete" class="btn btn-danger"/>
+                    </form>
+
+                </div>
+            </div>
+        }
+    }
+</div>
