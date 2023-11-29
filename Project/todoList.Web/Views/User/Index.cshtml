@@ -3,25 +3,13 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Welcome, @Model.UserName</h1>
-<h5>@Model.Name @Model.LastName</h5>
-<h6>@Model.Email</h6>
-<h6>@Model.About</h6>
-
-<h5>Your Tasks</h5>
-<div class="row">
-@foreach (ViewTaskResponse task in ViewBag.Tasks)
-{
-    <div class="col-3">
-        <partial name="Components/_TaskCard" model="@task"/>
-    </div>
-}
+<div class="d-flex flex-row justify-content-between">
+    <h3 class="mt-3">Your Lists</h3>
+    <a class="btn btn-primary mt-3 mb-2" asp-action="Create" asp-controller="List">Create New</a>  
 </div>
-<h5>Your Lists</h5>
-<a class="btn btn-primary" asp-action="Create" asp-controller="List">Create New</a>
 @foreach (var list in ViewBag.Lists)
 {
-    <div class="h-25 p-5 bg-light border rounded-3">
-    <a asp-action="Index" asp-controller="List" asp-route-listId="@list.Id">@list.Name</a>
+    <div class="h-25 p-5 rounded-3 mt-2 mb-2 bg-secondary">
+    <a asp-action="Index" asp-controller="List" asp-route-listId="@list.Id" class="text-white"><h5>@list.Name</h5></a>
     </div>
 }

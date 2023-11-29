@@ -1,0 +1,16 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Container(todoAlias, "TodoList")
+
+Person(userAlias, "User")
+
+Container(dbAlias, "Database")
+
+Rel(userAlias, todoAlias, "Makes requests")
+Rel(todoAlias, userAlias, "Returns views")
+
+Rel(todoAlias, dbAlias, "Creates Tasks/TasksLists/Users")
+Rel(dbAlias, todoAlias, "Returns Tasks/TasksLists/Users")
+
+@enduml

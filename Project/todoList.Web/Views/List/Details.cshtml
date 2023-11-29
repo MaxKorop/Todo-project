@@ -23,8 +23,9 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Create" asp-controller="Tasks" asp-route-listId="@Model.Id" class="btn btn-primary">Add Task</a>
-    @{
+    <a asp-action="Create" asp-controller="Tasks" asp-route-listId="@Model.Id" class="btn btn-primary m-2">Add Task</a>
+    <div class="d-flex flex-row flex-wrap">
+        @{
         if (ViewBag.Tasks.Count != 0)
         {
             foreach (ViewTaskResponse item in ViewBag.Tasks)
@@ -37,4 +38,5 @@
             <p>There isn't any task yet.</p>
         }
     }
+    </div>
 </div>
