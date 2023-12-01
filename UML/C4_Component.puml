@@ -1,0 +1,61 @@
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+rectangle "TodoList App" {
+    Component(UserController, "UserController")
+    Component(ListController, "ListController")
+    Component(TaskController, "TaskController")
+    Component(HomeController, "HomeController")
+
+    Component(UserView, "UserView")
+    Component(ListView, "ListView")
+    Component(TaskView, "TaskView")
+    Component(HomeView, "HomeView")
+
+    Component(UserModel, "UserModel")
+    Component(TaskListModel, "TaskListModel")
+    Component(TaskModel, "TaskModel")
+
+    Component(UserService, "UserService")
+    Component(TaskService, "TaskService")
+    Component(ListService, "ListService")
+}
+
+ComponentDb(db, "Database")
+
+Person(user, "User")
+
+BiRel_D(UserService, db, "Reads/Writes")
+BiRel_D(TaskService, db, "Reads/Writes")
+BiRel_D(ListService, db, "Reads/Writes")
+
+Rel_R(UserService, UserModel, "Uses")
+Rel_R(TaskService, TaskModel, "Uses")
+Rel_R(ListService, TaskListModel, "Uses")
+ 
+Rel_D(UserController, UserService, "Uses")
+Rel_D(UserController, TaskService, "Uses")
+Rel_D(UserController, ListService, "Uses")
+
+Rel_D(ListController, UserService, "Uses")
+Rel_D(ListController, TaskService, "Uses")
+Rel_D(ListController, ListService, "Uses")
+
+Rel_D(TaskController, UserService, "Uses")
+Rel_D(TaskController, TaskService, "Uses")
+Rel_D(TaskController, ListService, "Uses")
+
+Rel_U(HomeController, HomeView, "Returns")
+
+Rel_U(UserController, UserView, "Returns")
+
+Rel_U(ListController, ListView, "Returns")
+
+Rel_U(TaskController, TaskView, "Returns")
+
+Rel(user, UserView, "Gets")
+Rel(user, TaskView, "Gets")
+Rel(user, ListView, "Gets")
+Rel(user, HomeView, "Gets")
+
+@enduml
