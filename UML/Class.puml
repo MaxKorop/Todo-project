@@ -1,0 +1,248 @@
+@startuml
+
+
+class ListService extends IListService{
+    - IListRepository listRepository
+    - ITaskRepository taskRepository
+
+    + AddList(TList list)
+    + UpdateList(TList list)
+    + DeleteList(int id)
+    + GetListById(int id)
+    + GetListsAsync()
+    + IsExist(int id)
+    + GetAllListOfUserAsync(int userId)
+}
+
+interface IListService {
+    AddList(TList list)
+    UpdateList(TList list)
+    DeleteList(int id)
+    GetListById(int id)
+    GetListsAsync()
+    IsExist(int id)
+    GetAllListOfUserAsync(int userId)
+}
+
+class TaskService extends ITaskService{
+    - ITaskRepository taskRepository
+    - IUsersTasksRepository usersTasksRepository
+    - IMapper mapper
+
+    + AddTask(CreateTaskRequest request)
+    + UpdateTask(UpdateTaskRequest request)
+    + DeleteTask(int id)
+    + GetTasksAsync()
+    + IsExist(int id)
+    + GetTasksByUserId(int userId)
+    + GetTasksByListId(int listId)
+    + GetAllPrioritiesAsync()
+    + GetAllStatusesAsync()
+}
+
+interface ITaskService {
+    AddTask(CreateTaskRequest request)
+    UpdateTask(UpdateTaskRequest request)
+    DeleteTask(int id)
+    GetTasksAsync()
+    IsExist(int id)
+    GetTasksByUserId(int userId)
+    GetTasksByListId(int listId)
+    GetAllPrioritiesAsync()
+    GetAllStatusesAsync()
+}
+
+class UserService extends IUserService {
+    - IUserRepository userRepository
+    - IMapper mapper
+
+    + AddUser(CreateUserRequest request)
+    + UpdateUser(User user)
+    + DeleteUser(int id)
+    + GetUserById(int id)
+    + GetUsersAsync()
+    + IsExist(int id)
+    + ValidateUserAsync(string userName, string password)
+    + IsUserNameExistAsync(string userName)
+    + IsEmailExistAsync(string email)
+    + GetUserIdByUsername(string userName)
+}
+
+interface IUserService {
+    AddUser(CreateUserRequest request)
+    UpdateUser(User user)
+    DeleteUser(int id)
+    GetUserById(int id)
+    GetUsersAsync()
+    IsExist(int id)
+    ValidateUserAsync(string userName, string password)
+    IsUserNameExistAsync(string userName)
+    IsEmailExistAsync(string email)
+    GetUserIdByUsername(string userName)
+}
+
+interface IRepository {
+    GetAllAsync()
+    GetAsync(int id)
+    Add(T entity)
+    Update(T entity)
+    DeleteAsync(int id)
+    IsExist(int id)
+}
+
+interface IListRepository {}
+
+interface ITaskRepository extends IRepository{
+    GetAllPrioritiesAsync()
+    GetAllStatusesAsync()
+}
+
+interface IUserRepository extends IRepository {
+    ValidateUser(string userName)
+    IsUserNameExist(string userName)
+    IsEmailExist(string email)
+}
+
+interface IUsersTasksRepository {
+    + GetAllAsync()
+    + GetUsersByTaskIdAsync(int taskId)
+    + GetTasksByUserIdAsync(int userId)
+    + AddAsync(UsersTasks usersTasks)
+    + AddByIdsAsync(int taskId, int userId)
+    + DeleteAsync(int userId, int taskId)
+    + DeleteUserAllAsync(int userId)
+    + DeleteTaskAllAsync(int taskId)
+}
+
+interface IEntity {
+    + int Id
+}
+
+class TList extends IEntity {
+    + int Id
+    + DateTime CreatedDate
+    + DateTime ModifiedDate
+    + string Name
+    + string Description
+    + int CreatedById
+    + User CreatedBy
+    + ICollection<_Task> Tasks
+    + ICollection<UsersTLists> Users
+}
+
+class CreateTaskRequest {
+    + string Name
+    + string Description
+    + DateTime DueDate
+
+
+    + int TListId
+    + int CreatedById
+    + int StatusId
+    + int PriorityId
+}
+
+class UpdateTaskRequest {
+    + int Id
+    + string Name
+    + string Description
+    + DateTime DueDate
+    + int CreatedById
+    + int TListId
+    + int StatusId
+    + int PriorityId
+}
+
+
+
+class CreateUserRequest {
+    + string UserName
+    + string Password
+    + string Email
+}
+
+class User {
+    + int Id
+    + DateTime CreatedDate
+    + DateTime ModifiedDate
+    + string UserName
+    + string Password
+    + string Email
+    + string Role
+    + string Name
+    + string LastName
+    + string About
+    + DateTime BirthDate
+    + ICollection<_Task> CreatedTasks
+    + ICollection<TList> CreatedLists
+    + ICollection<UsersTasks> AssignedTasks
+    + ICollection<UsersTLists> AssignedLists
+    + string ImgUrl
+}
+
+class UsersTasks {
+    + int UserId
+    + User User
+    + int TaskId
+    + _Task Task
+}
+
+class UsersTLists {
+    + int UserId
+    + User User
+    + int TListId
+    + TList TList
+}
+
+class _Task {
+    + int Id
+    + DateTime CreatedDate
+    + DateTime ModifiedDate
+    + string Name
+    + string Description
+    + DateTime DueDate
+    + TList TList
+    + Priority Priority
+    + Status Status
+    + User CreatedBy
+    + int TListId
+    + int CreatedById
+    + int StatusId
+    + int PriorityId
+    + bool IsActive
+    + ICollection<UsersTasks> AssignedUsers
+}
+
+ListService *-- IListRepository
+ListService *-- ITaskRepository
+IListService *-- TList
+
+TaskService *-- ITaskRepository
+TaskService *-- IUsersTasksRepository
+ITaskService *-- CreateTaskRequest
+ITaskService *-- UpdateTaskRequest
+
+UserService *-- IUserRepository
+IUserService *-- CreateUserRequest
+IUserService *-- User
+
+IUsersTasksRepository *-- UsersTasks
+
+TList *-- User
+TList *-- Task
+TList *-- UsersTLists
+
+User *-- Task
+User *-- TList
+User *-- UsersTasks
+User *-- UsersTLists
+
+UsersTasks *-- User
+UsersTasks *-- _Task
+
+UsersTLists *-- User
+UsersTLists *-- TList
+
+_Task *-- UsersTasks
+
+@enduml
