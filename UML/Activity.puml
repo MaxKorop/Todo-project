@@ -1,0 +1,108 @@
+@startuml
+
+actor User as user
+participant View as vw
+participant "UI Controller" as uc
+participant Database as db
+
+activate user
+user -> vw : Log In/Sign Up
+activate vw
+vw -> uc : HandleEvent()
+activate uc
+uc -> uc : LogIn()
+activate db
+uc -> db : SignUp()
+db -> uc
+deactivate db
+uc -> uc : ValidateUser()
+uc -> vw : View()
+deactivate uc
+vw --> user
+deactivate vw
+
+user -> vw : Create List of Tasks
+activate vw
+vw -> uc : HandleEvent()
+activate uc
+uc -> db : CreateList()
+activate db
+uc -[hidden]-> db
+db -> uc
+deactivate db
+uc -> vw : View()
+deactivate uc
+vw --> user
+deactivate vw
+
+user -> vw : Create Task
+activate vw
+vw -> uc : HandleEvent()
+activate uc
+uc -> db : CreateTask()
+activate db
+uc -[hidden]-> db
+db -> uc
+deactivate db
+uc -> vw : View()
+deactivate uc
+vw --> user
+deactivate vw
+
+user -> vw : Update List of Tasks
+activate vw
+vw -> uc : HandleEvent()
+activate uc
+uc -> db : UpdateList()
+activate db
+uc -[hidden]-> db
+db -> uc
+deactivate db
+uc -> vw : View()
+deactivate uc
+vw --> user
+deactivate vw
+
+user -> vw : Delete List of Tasks
+activate vw
+vw -> uc : HandleEvent()
+activate uc
+uc -> db : DeleteList()
+activate db
+uc -[hidden]-> db
+db -> uc
+deactivate db
+uc -> vw : View()
+deactivate uc
+vw --> user
+deactivate vw
+
+user -> vw : Update Task
+activate vw
+vw -> uc : HandleEvent()
+activate uc
+uc -> db : UpdateTask()
+activate db
+uc -[hidden]-> db
+db -> uc
+deactivate db
+uc -> vw : View()
+deactivate uc
+vw --> user
+deactivate vw
+
+user -> vw : Delete Task
+activate vw
+vw -> uc : HandleEvent()
+activate uc
+uc -> db : DeleteTask()
+activate db
+uc -[hidden]-> db
+db -> uc
+deactivate db
+uc -> vw : View()
+deactivate uc
+vw --> user
+deactivate vw
+
+@enduml
