@@ -5,3 +5,7 @@
 ![C4 Diagram (Component)](./Diagrams/C4_Component.png)
 
 ![ER-diagram](./Diagrams/ERD.png)
+
+![Class diagram](./Diagrams/Class.png)
+
+![Activity diagram](./Diagrams/Activity.png)
